@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Sample.Data;
 using Sample.DTO;
 
@@ -14,20 +15,22 @@ namespace Sample.Service
             _context = context;
         }
 
-        public async Task<PersonDTO> AddPersonAsync(Person person)
+        public async Task<PersonDTO> AddPersonAsync([FromBody] PersonDTO dtoPerson)
         {
-            var personDTO = new PersonDTO
+            var person = new Person
             {
-                Id = person.Id,
-                FirstName = person.FirstName,
-                LastName = person.LastName,
+                Id = dtoPerson.Id,
+                FirstName = dtoPerson.FirstName,
+                LastName = dtoPerson.LastName,
             };
 
             _context.Persons.Add(person);
 
             await _context.SaveChangesAsync();
 
-            return personDTO;
+            var addedPersonDTO = MapPersonToDTO(person);
+
+            return addedPersonDTO;
         }
 
         public async Task<bool> DeletePersonAsync(int? id)
@@ -58,7 +61,7 @@ namespace Sample.Service
             return personsList.Select(person => MapPersonToDTO(person));
         }
 
-        public async Task<PersonDTO> UpdatePersonAsync(int? id, PersonDTO updatedPersonDTO)
+        public async Task<PersonDTO> UpdatePersonAsync(int? id, [FromBody] PersonDTO updatedPersonDTO)
         {
             if (id is null)
             {

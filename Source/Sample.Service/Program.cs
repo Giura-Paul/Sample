@@ -19,6 +19,8 @@ builder.Services.AddDbContext<PersonsContext>( options =>
     options.UseSqlServer(connectionString, optionsBuilder => optionsBuilder.MigrationsAssembly("Sample.Service"));
 });
 
+builder.Services.AddScoped<IBackendService, BackendService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -35,7 +37,7 @@ app.MapGet("/api/people", (IBackendService service) =>
     return service.GetAllPersonsAsync();
 });
 
-app.MapPost("/api/people", (IBackendService service, Person person) =>
+app.MapPost("/api/people", (IBackendService service, PersonDTO person) =>
 {
     return service.AddPersonAsync(person);
 });
