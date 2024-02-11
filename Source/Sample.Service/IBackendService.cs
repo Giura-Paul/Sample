@@ -7,7 +7,7 @@ namespace Sample.Service
     {
         Task<PersonDTO> AddPersonAsync(PersonDTO person);
         Task<IEnumerable<PersonDTO>> GetAllPersonsAsync();
-        Task<PersonDTO> UpdatePersonAsync(int? id, PersonDTO updatedPersonDTO);
-        Task<bool> DeletePersonAsync(int? id);
+        Task<Result> UpdatePersonAsync(int id, UpdatedPersonDTO updatedPersonDTO);
+        Task<Result> DeletePersonAsync(int id);
     }
 }

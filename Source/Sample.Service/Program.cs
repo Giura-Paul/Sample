@@ -42,9 +42,9 @@ app.MapPost("/api/people", (IBackendService service, PersonDTO person) =>
     return service.AddPersonAsync(person);
 });
 
-app.MapPut("/api/people/{id}", (IBackendService service,int id, PersonDTO personDTO) =>
+app.MapPut("/api/people/{id}", (IBackendService service, int id, UpdatedPersonDTO updatedPersonDTO) =>
 {
-    return service.UpdatePersonAsync(id, personDTO);
+    return service.UpdatePersonAsync(id, updatedPersonDTO);
 });
 
 app.MapDelete("/api/people/{id}", (IBackendService service, int id) =>

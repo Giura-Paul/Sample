@@ -19,15 +19,15 @@ using Sample.App.ViewModels;
 
 namespace Sample.App
 {
-    public sealed partial class MainViewControl : UserControl
+    public sealed partial class EditPersonDialog : ContentDialog
     {
-        public PersonViewModel PersonViewModel { get; set; }
+        public EditPersonViewModel EditPersonViewModel { get; set; }
 
-        public MainViewControl()
+        public EditPersonDialog(EditPersonViewModel editPersonViewModel)
         {
             InitializeComponent();
-            PersonViewModel = new PersonViewModel();
-            Loaded += (s, e) => PersonViewModel.LoadPersons();
+            EditPersonViewModel = editPersonViewModel;
+            EditPersonViewModel.DialogHandler = new DialogHandler(this);
         }
     }
 }

@@ -33,25 +33,18 @@ namespace Sample.Service
             return addedPersonDTO;
         }
 
-        public async Task<bool> DeletePersonAsync(int? id)
+        public async Task<Result> DeletePersonAsync(int id)
         {
-            if (id is null)
-            {
-                throw new ArgumentNullException($"Person with ID {id} could not be found.");
-            }
-
             var person = await _context.Persons.FindAsync(id);
 
-            if (person is null)
-            {
-                return false;
-            }
+            if (person == null)
+                return Result.Error($"Person with ID {id} could not be found.");
 
             _context.Persons.Remove(person);
 
             await _context.SaveChangesAsync();
 
-            return true;
+            return Result.Success($"Person with ID {id} deleted successfully.");
         }
 
         public async Task<IEnumerable<PersonDTO>> GetAllPersonsAsync()
@@ -61,34 +54,28 @@ namespace Sample.Service
             return personsList.Select(person => MapPersonToDTO(person));
         }
 
-        public async Task<PersonDTO> UpdatePersonAsync(int? id, [FromBody] PersonDTO updatedPersonDTO)
+        public async Task<Result> UpdatePersonAsync(int id, [FromBody] UpdatedPersonDTO updatedPersonDTO)
         {
-            if (id is null)
-            {
-                throw new ArgumentNullException($"Person with ID {id} could not be found.");
-            }
-
             var personToBeUpdated = await _context.Persons.FindAsync(id);
+
+            if (personToBeUpdated is null)
+                return Result.Error($"Person with ID {id} could not be found.");
 
             var dtoPerson = MapPersonToDTO(personToBeUpdated);
 
-            dtoPerson.Id = updatedPersonDTO.Id;
             dtoPerson.FirstName = updatedPersonDTO.FirstName;
             dtoPerson.LastName = updatedPersonDTO.LastName;
 
             await _context.SaveChangesAsync();
 
-            return dtoPerson;
+            return Result.Success("Update Successful.");
         }
 
-        private PersonDTO MapPersonToDTO(Person person)
+        private PersonDTO MapPersonToDTO(Person person) => new PersonDTO
         {
-            return new PersonDTO
-            {
-                Id = person.Id,
-                FirstName = person.FirstName,
-                LastName = person.LastName
-            };
-        }
+            Id = person.Id,
+            FirstName = person.FirstName,
+            LastName = person.LastName
+        };
     }
 }

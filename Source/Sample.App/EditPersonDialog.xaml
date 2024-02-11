@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentDialog
+    x:Class="Sample.App.EditPersonDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    PrimaryButtonCommand="{x:Bind EditPersonViewModel.EditPersonCommand}"
+    PrimaryButtonText="Edit">
+
+    <StackPanel>
+        <TextBox Header="First Name" PlaceholderText="Enter First Name" Text="{x:Bind EditPersonViewModel.UpdatedPersonDTO.FirstName, Mode=TwoWay}"/>
+        <TextBox Header="Last Name" PlaceholderText="Enter Last Name" Text="{x:Bind EditPersonViewModel.UpdatedPersonDTO.LastName, Mode=TwoWay}"/>
+    </StackPanel>
+</ContentDialog>

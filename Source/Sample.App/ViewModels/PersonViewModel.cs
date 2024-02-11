@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Sample.DTO;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Sample.App.ViewModels
 {
-    public class PersonViewModel : ObservableObject
+    public partial class PersonViewModel : ObservableObject
     {
         private ObservableCollection<PersonDTO> _persons = new();
 
@@ -52,36 +53,28 @@ namespace Sample.App.ViewModels
             }
         }
 
-        public RelayCommand AddPersonCommand => new RelayCommand(AddPerson);
-
+        [RelayCommand]
         private async void AddPerson()
         {
 
         }
 
-        public RelayCommand DeletePersonCommand => new RelayCommand(DeletePerson);
-
+        [RelayCommand]
         private async void DeletePerson()
         {
 
         }
 
-        public RelayCommand EditPersonCommand => new RelayCommand(EditPerson);
-
-        private PersonDTO _selectedPerson;
-        public PersonDTO SelectedPerson
+        [RelayCommand]
+        private async void ShowEditPersonDialog(PersonDTO personDTO)
         {
-            get { return _selectedPerson; }
-            set
-            {
-                _selectedPerson = value;
-                OnPropertyChanged(nameof(SelectedPerson));
-            }
-        }
+            var vm = new EditPersonViewModel(personDTO);
+            // Create a ContentDialog for editing the person
+            var editPersonDialog = new EditPersonDialog(vm);
 
-        private async void EditPerson()
-        {
-
+            // Show the ContentDialog and await the user's response
+            await editPersonDialog.ShowAsync();
+            LoadPersons();
         }
     }
 }

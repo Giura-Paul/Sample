@@ -11,9 +11,10 @@
     <UseRidGraph>true</UseRidGraph>
     <UseWinUI>true</UseWinUI>
     <EnableMsixTooling>true</EnableMsixTooling>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="AddPersonUserControl.xaml" />
+    <None Remove="EditPersonDialog.xaml" />
     <None Remove="MainViewControl.xaml" />
   </ItemGroup>
 
@@ -31,6 +32,8 @@
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240124002-experimental2" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26031-preview" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="RuntimeNullables.Fody" Version="1.0.6" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 
@@ -46,12 +49,12 @@
     <ProjectReference Include="..\Sample.DTO\Sample.DTO.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Page Update="MainViewControl.xaml">
+    <Page Update="EditPersonDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="AddPersonUserControl.xaml">
+    <Page Update="MainViewControl.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

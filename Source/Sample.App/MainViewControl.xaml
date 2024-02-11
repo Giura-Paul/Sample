@@ -9,10 +9,10 @@
         <DataTemplate x:DataType="dto:PersonDTO">
             <Grid>
                 <TextBlock>
-                    <Run Text="{x:Bind LastName}"/>, <Run Text="{x:Bind FirstName}"/>
+                    <Run Text="{x:Bind Id}"/>, <Run Text="{x:Bind LastName}"/>, <Run Text="{x:Bind FirstName}"/>
                 </TextBlock>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Content="Edit"/>
+                    <Button Content="Edit" CommandParameter="{x:Bind}"/>
                     <Button Content="Delete"/>
                 </StackPanel>
             </Grid>
