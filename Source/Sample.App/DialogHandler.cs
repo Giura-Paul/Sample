@@ -1,27 +1,21 @@
 ﻿using Microsoft.UI.Xaml.Controls;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Sample.App
+namespace Sample.App;
+
+public class DialogHandler
 {
-    public class DialogHandler
+    private readonly ContentDialog _dialog;
+    private bool _allowClose;
+
+    public DialogHandler(ContentDialog dialog)
     {
-        private ContentDialog _dialog;
-        private bool _allowClose;
+        _dialog = dialog;
+        _dialog.Closing += (_, e) => e.Cancel = !_allowClose;
+    }
 
-        public DialogHandler(ContentDialog dialog)
-        {
-            _dialog = dialog;
-            _dialog.Closing += (_, e) => e.Cancel = !_allowClose;
-        }
-
-        public void Close()
-        {
-            _allowClose = true;
-            _dialog.Hide();
-        }
+    public void Close()
+    {
+        _allowClose = true;
+        _dialog.Hide();
     }
 }

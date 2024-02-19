@@ -12,6 +12,7 @@
     <UseWinUI>true</UseWinUI>
     <EnableMsixTooling>true</EnableMsixTooling>
     <Nullable>enable</Nullable>
+    <NoWarn>$(NoWarn);CS8305</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="EditPersonDialog.xaml" />
@@ -30,10 +31,9 @@
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+    <PackageReference Include="CommunityToolkit.WinUI.Extensions" Version="8.0.240109" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240124002-experimental2" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26031-preview" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="RuntimeNullables.Fody" Version="1.0.6" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 

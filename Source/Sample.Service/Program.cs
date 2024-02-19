@@ -14,7 +14,7 @@ var configuration = builder.Configuration;
 
 string connectionString = configuration.GetConnectionString("DefaultConnection");
 
-builder.Services.AddDbContext<PersonsContext>( options =>
+builder.Services.AddDbContext<PersonsContext>(options =>
 {
     options.UseSqlServer(connectionString, optionsBuilder => optionsBuilder.MigrationsAssembly("Sample.Service"));
 });

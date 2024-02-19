@@ -18,7 +18,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml" Version="2.8.6" />
-    <PackageReference Include="RuntimeNullables.Fody" Version="1.0.6" />
   </ItemGroup>
 
 </Project>
