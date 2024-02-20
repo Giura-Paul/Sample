@@ -4,8 +4,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     PrimaryButtonCommand="{x:Bind EditPersonViewModel.EditPersonCommand}"
-    PrimaryButtonText="Edit"
-    SecondaryButtonClick="OnClickClosed">
+    PrimaryButtonText="Edit">
 
     <StackPanel>
         <TextBox Header="First Name" PlaceholderText="Enter First Name" Text="{x:Bind EditPersonViewModel.UpdatedPersonDTO.FirstName, Mode=TwoWay}"/>

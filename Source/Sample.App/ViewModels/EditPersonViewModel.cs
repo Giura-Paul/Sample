@@ -30,7 +30,7 @@ public partial class EditPersonViewModel : ObservableObject
     {
         var result = await _serviceClient.UpdatePersonAsync(_personId, UpdatedPersonDTO);
 
-        await DialogMessageDisplay.ShowMessageDialogAsync(result.IsSuccess ? "Success" : "Error");
+        await DialogMessageDisplay.ShowMessageDialogAsync(result.IsSuccess ? "Success" : "Error", result.Message);
 
         if (result.IsSuccess)
         {

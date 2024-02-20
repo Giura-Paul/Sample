@@ -18,11 +18,11 @@ internal class ServiceClient
         _baseApiUrl = "https://localhost:7117";
     }
 
-    public async Task<Result<PersonDTO>> AddPersonAsync(PersonDTO personDTO)
+    public async Task<Result> AddPersonAsync(PersonDTO personDTO)
     {
         var url = GetApiUrl("/api/people");
 
-        return await _httpClient.SendAndGetResultAsync<PersonDTO>(HttpMethod.Post, url, personDTO);
+        return await _httpClient.SendAndGetResultAsync(HttpMethod.Post, url, personDTO);
     }
 
     public async Task<Result> DeletePersonAsync(int id)

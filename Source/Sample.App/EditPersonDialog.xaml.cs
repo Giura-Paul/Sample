@@ -18,9 +18,4 @@ public sealed partial class EditPersonDialog : ContentDialog
         EditPersonViewModel.DialogHandler = new DialogHandler(this);
         XamlRoot = xamlRoot;
     }
-
-    private void OnClickClosed(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-    {
-        EditPersonViewModel?.DialogHandler?.Close();
-    }
 }

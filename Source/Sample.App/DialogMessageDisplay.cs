@@ -6,12 +6,12 @@ namespace Sample.App.ViewModels;
 
 public static class DialogMessageDisplay
 {
-    public static Task ShowMessageDialogAsync(string message)
+    public static async Task ShowMessageDialogAsync(string title, string message)
     {
         nint handle = WinRT.Interop.WindowNative.GetWindowHandle(((App)Application.Current).MainWindow);
-        var dialog = new MessageDialog(message);
+        var dialog = new MessageDialog(message, title);
         InitializeWithWindow.Initialize(dialog, handle);
 
-        return Task.CompletedTask;
+        await dialog.ShowAsync();
     }
 }

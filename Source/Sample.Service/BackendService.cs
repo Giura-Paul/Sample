@@ -14,20 +14,24 @@ public class BackendService : IBackendService
         _context = context;
     }
 
-    public async Task<PersonDTO> AddPersonAsync([FromBody] PersonDTO dtoPerson)
+    public async Task<Result> AddPersonAsync([FromBody] PersonDTO dtoPerson)
     {
         var person = new Person
         {
-            Id = dtoPerson.Id,
             FirstName = dtoPerson.FirstName,
             LastName = dtoPerson.LastName,
         };
+
+        if (person is null)
+        {
+            return Result.Error("Could not add person to database at this time. Try again later.");
+        }
 
         _context.Persons.Add(person);
 
         await _context.SaveChangesAsync();
 
-        return MapPersonToDTO(person);
+        return Result.Success("Person added successfully.");
     }
 
     public async Task<Result> DeletePersonAsync(int id)

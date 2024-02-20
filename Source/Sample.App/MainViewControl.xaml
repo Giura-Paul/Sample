@@ -8,6 +8,7 @@
     xmlns:ct="using:CommunityToolkit.WinUI">
 
     <Grid x:Name="Root" DataContext="{x:Bind MainViewModel}">
+        <Button Content="Add Person" Command="{x:Bind MainViewModel.ShowAddPersonDialogCommand}"/>
         <ItemsRepeater ItemsSource="{x:Bind MainViewModel.Persons}">
             <DataTemplate x:DataType="dto:PersonDTO">
                 <Grid>

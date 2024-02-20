@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentDialog
+    x:Class="Sample.App.AddPersonDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    PrimaryButtonCommand="{x:Bind AddPersonViewModel.AddPersonCommand}"
+    PrimaryButtonText="Add">
+
+    <StackPanel>
+        <TextBox Header="First Name" PlaceholderText="Enter First Name" Text="{x:Bind AddPersonViewModel.AddedPerson.FirstName, Mode=TwoWay}"/>
+        <TextBox Header="Last Name" PlaceholderText="Enter Last Name" Text="{x:Bind AddPersonViewModel.AddedPerson.LastName, Mode=TwoWay}"/>
+    </StackPanel>
+</ContentDialog>

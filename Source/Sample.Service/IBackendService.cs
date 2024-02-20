@@ -1,13 +1,12 @@
 ﻿using Sample.Data;
 using Sample.DTO;
 
-namespace Sample.Service
+namespace Sample.Service;
+
+public interface IBackendService
 {
-    public interface IBackendService
-    {
-        Task<PersonDTO> AddPersonAsync(PersonDTO person);
-        Task<IEnumerable<PersonDTO>> GetAllPersonsAsync();
-        Task<Result> UpdatePersonAsync(int id, UpdatedPersonDTO updatedPersonDTO);
-        Task<Result> DeletePersonAsync(int id);
-    }
+    Task<Result> AddPersonAsync(PersonDTO person);
+    Task<IEnumerable<PersonDTO>> GetAllPersonsAsync();
+    Task<Result> UpdatePersonAsync(int id, UpdatedPersonDTO updatedPersonDTO);
+    Task<Result> DeletePersonAsync(int id);
 }

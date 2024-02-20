@@ -15,6 +15,7 @@
     <NoWarn>$(NoWarn);CS8305</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="AddPersonDialog.xaml" />
     <None Remove="EditPersonDialog.xaml" />
     <None Remove="MainViewControl.xaml" />
   </ItemGroup>
@@ -47,6 +48,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Sample.DTO\Sample.DTO.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="AddPersonDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="EditPersonDialog.xaml">

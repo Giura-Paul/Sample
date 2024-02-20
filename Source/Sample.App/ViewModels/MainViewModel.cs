@@ -63,4 +63,14 @@ public partial class MainViewModel : ObservableObject
 
         await LoadPersonsAsync();
     }
+
+    [RelayCommand]
+    private async Task ShowAddPersonDialogAsync()
+    {
+        var vm = new AddPersonViewModel();
+
+        var addPersonDialog = await new AddPersonDialog(vm, _xamlRootProvider.XamlRoot).ShowAsync();
+
+        await LoadPersonsAsync();
+    }
 }
