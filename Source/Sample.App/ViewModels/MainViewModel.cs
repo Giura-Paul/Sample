@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Net.Http.Json;
+using System.Text.Json;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI.Xaml;
@@ -11,15 +12,14 @@ namespace Sample.App.ViewModels;
 public partial class MainViewModel : ObservableObject
 {
     private ObservableCollection<PersonDTO> _persons = new();
-
+    private readonly ServiceClient _serviceClient;
     public ICollection<PersonDTO> Persons => _persons;
 
-    private readonly HttpClient _httpClient;
     private readonly IXamlRootProvider _xamlRootProvider;
 
     public MainViewModel(IXamlRootProvider xamlRootProvider)
     {
-        _httpClient = new HttpClient();
+        _serviceClient = new ServiceClient();
         _xamlRootProvider = xamlRootProvider;
     }
 
@@ -28,28 +28,14 @@ public partial class MainViewModel : ObservableObject
     {
         _persons.Clear();
 
-        var response = await _httpClient.GetAsync("https://localhost:7117/api/people");
+        var result = await _serviceClient.GetAllPersonsAsync();
 
-        if (response.IsSuccessStatusCode)
+        var persons = result.Data;
+
+        if (persons is not null)
         {
-            List<PersonDTO> persons = await response.Content.ReadFromJsonAsync<List<PersonDTO>>();
-
-            if (persons is not null)
-            {
-                foreach (PersonDTO person in persons)
-                    _persons.Add(person);
-            }
-        }
-        else
-        {
-            ContentDialog errorMessageDialog = new ContentDialog
-            {
-                Title = "Operation failed",
-                Content = "The list of persons could not be retrieved at this time.",
-                CloseButtonText = "Ok",
-            };
-
-            ContentDialogResult result = await errorMessageDialog.ShowAsync();
+            foreach (var person in persons)
+                _persons.Add(person);
         }
     }
 
@@ -70,6 +56,27 @@ public partial class MainViewModel : ObservableObject
         var vm = new AddPersonViewModel();
 
         var addPersonDialog = await new AddPersonDialog(vm, _xamlRootProvider.XamlRoot).ShowAsync();
+
+        await LoadPersonsAsync();
+    }
+
+    [RelayCommand]
+    private async Task ShowDeletePersonDialogAsync(PersonDTO personDTO)
+    {
+        var deletePersonDialog = await new ContentDialog {
+            Title = "Delete Person",
+            Content = "Are you sure you want to delete this person?",
+            PrimaryButtonText = "Delete",
+            CloseButtonText = "Cancel",
+            XamlRoot = _xamlRootProvider.XamlRoot,
+        }.ShowAsync();
+
+        if (deletePersonDialog == ContentDialogResult.Primary)
+        {
+            var result = await _serviceClient.DeletePersonAsync(personDTO.Id);
+
+            await DialogMessageDisplay.ShowMessageDialogAsync(result.IsSuccess ? "Success" : "Error", result.Message);
+        }
 
         await LoadPersonsAsync();
     }

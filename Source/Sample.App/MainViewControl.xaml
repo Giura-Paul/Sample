@@ -20,7 +20,10 @@
                                 ct:FrameworkElementExtensions.AncestorType="local:MainViewControl"
                                 CommandParameter="{x:Bind}"
                                 Command="{Binding (ct:FrameworkElementExtensions.Ancestor).MainViewModel.ShowEditPersonDialogCommand, RelativeSource={RelativeSource Self}}"/>
-                        <Button Content="Delete"/>
+                        <Button Content="Delete"
+                                ct:FrameworkElementExtensions.AncestorType="local:MainViewControl"
+                                CommandParameter="{x:Bind}"
+                                Command="{Binding (ct:FrameworkElementExtensions.Ancestor).MainViewModel.ShowDeletePersonDialogCommand, RelativeSource={RelativeSource Self}}"/>
                     </StackPanel>
                 </Grid>
             </DataTemplate>
